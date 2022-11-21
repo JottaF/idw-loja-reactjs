@@ -1,13 +1,81 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
+import Contas from './layouts/contas';
+import Vitrine from './layouts/vitrine';
+import AppProvider from './providers/AppProvider';
+import { AuthProvider } from './providers/AuthProvider';
 import reportWebVitals from './reportWebVitals';
+import Cadastrar from './routes/contas/cadastrar';
+import Entrar from './routes/contas/entrar';
+import Home, { loader as homeLoader, ServidorIndisponivel } from './routes/home';
+import Perfil, { loader as perfilLoader } from './routes/perfil';
+import Produto, { loader as produtoLoader, ProdutoNaoEncontrado } from './routes/produto';
+import RecuperarAcesso from './routes/contas/recuperar-acesso';
+import { Pedidos } from './routes/pedidos';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: 'contas',
+        element: <Contas />,
+        children: [
+          {
+            path: 'entrar',
+            element: <Entrar />
+          },
+          {
+            path: 'cadastrar',
+            element: <Cadastrar />
+          },
+          {
+            path: 'recuperar-acesso',
+            element: <RecuperarAcesso />
+          },
+        ],
+      },
+      {
+        path: '',
+        element: <Vitrine />,
+        children: [
+          {
+            path: 'perfil',
+            element: <Perfil />,
+            loader: perfilLoader,
+          },
+          {
+            path: 'produtos/:idProduto',
+            loader: produtoLoader,
+            errorElement: <ProdutoNaoEncontrado />,
+            element: <Produto />
+          },
+          {
+            path: '',
+            loader: homeLoader,
+            element: <Home />,
+            errorElement: <ServidorIndisponivel />,
+          }
+        ]
+      }, {
+        path: 'pedidos',
+        element: <Pedidos />
+      }
+    ]
+  }
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
