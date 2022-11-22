@@ -21,7 +21,7 @@ export async function loader({ params }) {
     if (favoritos.length != 0) {
       favorito = favoritos[0];
     }
-  } catch (error) {}
+  } catch (error) { }
   return { dados, favorito };
 }
 

@@ -72,6 +72,8 @@ const AppProvider = ({ children }) => {
     setProdutosDoCarrinho(lista);
   };
 
+  const onFinalizarPedido = () => {}
+
   // Utiliza o hook useEffect para executar um código
   // quando houver alteração no state produtosDoCarrinho.
   // Especificamente, o código atualiza o localStorage

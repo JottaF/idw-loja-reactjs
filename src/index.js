@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Contas from './layouts/contas';
 import Vitrine from './layouts/vitrine';
+import { Pedido } from './layouts/pedido';
 import AppProvider from './providers/AppProvider';
 import { AuthProvider } from './providers/AuthProvider';
 import reportWebVitals from './reportWebVitals';
@@ -13,7 +14,8 @@ import Home, { loader as homeLoader, ServidorIndisponivel } from './routes/home'
 import Perfil, { loader as perfilLoader } from './routes/perfil';
 import Produto, { loader as produtoLoader, ProdutoNaoEncontrado } from './routes/produto';
 import RecuperarAcesso from './routes/contas/recuperar-acesso';
-import { Pedidos } from './routes/pedidos';
+import { DetalhePedido, loader as pedidoLoader } from './routes/pedidos/detalhePedido';
+import { Pedidos } from './routes/pedidos/pedidos';
 
 const router = createBrowserRouter([
   {
@@ -60,9 +62,21 @@ const router = createBrowserRouter([
             errorElement: <ServidorIndisponivel />,
           }
         ]
-      }, {
-        path: 'pedidos',
-        element: <Pedidos />
+      },
+      {
+        path: 'pedido',
+        element: <Pedido />,
+        children: [
+          {
+            path: '',
+            element: <Pedidos />
+          },
+          {
+            path: 'pedido/:idPedido',
+            loader: pedidoLoader,
+            element: <DetalhePedido />,
+          }
+        ]
       }
     ]
   }
