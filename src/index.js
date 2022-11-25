@@ -14,8 +14,8 @@ import Home, { loader as homeLoader, ServidorIndisponivel } from './routes/home'
 import Perfil, { loader as perfilLoader } from './routes/perfil';
 import Produto, { loader as produtoLoader, ProdutoNaoEncontrado } from './routes/produto';
 import RecuperarAcesso from './routes/contas/recuperar-acesso';
-import { DetalhePedido, loader as pedidoLoader } from './routes/pedidos/detalhePedido';
-import { Pedidos } from './routes/pedidos/pedidos';
+import { DetalhePedido, loader as pedidoLoader, PedidoIndisponivel } from './routes/pedidos/detalhePedido';
+import Pedidos from './routes/pedidos/pedidos';
 
 const router = createBrowserRouter([
   {
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'pedido',
+        path: 'pedidos',
         element: <Pedido />,
         children: [
           {
@@ -72,9 +72,10 @@ const router = createBrowserRouter([
             element: <Pedidos />
           },
           {
-            path: 'pedido/:idPedido',
+            path: ':idPedido',
             loader: pedidoLoader,
             element: <DetalhePedido />,
+            errorElement: <PedidoIndisponivel />
           }
         ]
       }
