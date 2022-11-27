@@ -4,7 +4,7 @@
  * @param {number} valor
  * @returns
  */
-function formatarPreco(valor) {
+export function formatarPreco(valor) {
   return valor.toLocaleString(undefined, {
     style: "currency",
     currency: "BRL",

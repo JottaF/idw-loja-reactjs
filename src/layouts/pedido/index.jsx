@@ -9,8 +9,10 @@ export function Pedido({ children }) {
   return (
     <>
       <BarraDeNavegacao />
-      <Container fluid className="my-5 main-container shadow">
-        <Outlet />
+      <Container className="content">
+        <Container fluid className="my-5 pb-3 main-container shadow">
+          <Outlet />
+        </Container>
       </Container>
       <Rodape className='rodape' />
     </>

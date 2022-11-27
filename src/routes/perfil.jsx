@@ -40,31 +40,33 @@ export default function Perfil() {
           Seu e-mail é a identidade da sua conta de usuário em nossa loja.
         </small>
       </div>
-      <section className="my-4">
-        <h2 className="mb-3">
-          <small>❤</small> Alguns dos seus produtos favoritos
-        </h2>
-        <ListGroup>
-          {dados.map((favorito) => (
-            <ListGroup.Item key={favorito.id}>
-              <div>
-                <Link
-                  to={`/produtos/${favorito.produto.id}`}
-                  className="text-decoration-none fw-bold"
+      {dados.length > 0 &&
+        <section className="my-4">
+          <h2 className="mb-3">
+            <small>❤</small> Alguns dos seus produtos favoritos
+          </h2>
+          <ListGroup>
+            {dados.map((favorito) => (
+              <ListGroup.Item key={favorito.id}>
+                <div>
+                  <Link
+                    to={`/produtos/${favorito.produto.id}`}
+                    className="text-decoration-none fw-bold"
+                  >
+                    {favorito.produto.nome}
+                  </Link>
+                </div>
+                <small
+                  className="text-muted"
+                  title={dayjs(favorito.createdAt).format("L LT")}
                 >
-                  {favorito.produto.nome}
-                </Link>
-              </div>
-              <small
-                className="text-muted"
-                title={dayjs(favorito.createdAt).format("L LT")}
-              >
-                {dayjs(favorito.createdAt).fromNow()}
-              </small>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </section>
+                  {dayjs(favorito.createdAt).fromNow()}
+                </small>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </section>
+      }
     </>
   );
 }

@@ -1,8 +1,12 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
+import { useState } from "react";
 import formatarPreco from "../lib/funcoes";
-import { useLojaContext } from "../providers/AppProvider";
+import { FuncoesPedidos } from "../lib/FuncoesPedidos";
+import auth from "../lib/auth";
+import { LojaContext, useLojaContext } from "../providers/AppProvider";
 import Alerta from "./Alerta";
 import "./Carrinho.scss";
+import { Link } from "react-router-dom";
 /**
  * O componente ItemDoCarrinho representa um item
  * da lista de produtos do Carrinho.
@@ -34,7 +38,8 @@ function ItemDoCarrinho({ produto, onRemover }) {
  */
 export default function Carrinho() {
   // utiliza o hook useContext para obter os valores do LojaContext
-  const { produtosDoCarrinho, onRemover } = useLojaContext();
+  const { produtosDoCarrinho, onRemover, onFinalizarPedido } = useLojaContext();
+  const [loading, setLoading] = useState(false)
 
   /**
    * Esta função calcula o total do carrinho com base
@@ -52,6 +57,12 @@ export default function Carrinho() {
     return total;
   };
 
+  const handleFinalizarPedidoClick = async (e) => {
+    setLoading(true)
+    await FuncoesPedidos.create(produtosDoCarrinho)
+    onFinalizarPedido()
+    setLoading(false)
+  }
   return (
     <div className="carrinho">
       <h1>Seu carrinho</h1>
@@ -76,9 +87,15 @@ export default function Carrinho() {
         <div>Total</div>
         <div>{formatarPreco(calcularTotal())}</div>
       </div>
-      {produtosDoCarrinho.length > 0 &&
-        <Button type="button" className="btn btn-primary btn-lg btn-block">Finalizar pedido</Button>
+      {(auth.getUserInfo() && produtosDoCarrinho.length > 0) &&
+        <Link to={'pedidos'}>
+          <Button type="button" className="btn btn-primary btn-lg btn-block" onClick={handleFinalizarPedidoClick}>
+            {loading && <Spinner size="sm"></Spinner>}
+            Finalizar pedido
+          </Button>
+        </Link>
       }
+      {(!auth.getUserInfo() && produtosDoCarrinho.length > 0) && <p className="h6 text-center my-4 text-secondary">Vamos fechar esse pedido? Faça login ou cadastre-se!</p>}
     </div>
   );
 }

@@ -72,7 +72,10 @@ const AppProvider = ({ children }) => {
     setProdutosDoCarrinho(lista);
   };
 
-  const onFinalizarPedido = () => {}
+  const onFinalizarPedido = () => {
+    setProdutosDoCarrinho([])
+    localStorage.setItem("carrinho", [])
+  }
 
   // Utiliza o hook useEffect para executar um código
   // quando houver alteração no state produtosDoCarrinho.
@@ -87,6 +90,7 @@ const AppProvider = ({ children }) => {
     setProdutosDoCarrinho,
     onComprar,
     onRemover,
+    onFinalizarPedido,
     showCarrinho,
     setShowCarrinho,
     handleFecharCarrinho,

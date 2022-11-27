@@ -1,5 +1,5 @@
 .rodape {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100vw;
     margin-top: 10px;
@@ -16,7 +16,8 @@ table {
     text-align: center;
 }
 
-table td:first-child, th:first-child {
+table td:first-child,
+th:first-child {
     text-align: start;
 }
 
@@ -35,4 +36,15 @@ table td:first-child, th:first-child {
 
 .head div:last-child {
     align-items: flex-end;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+        text-decoration: none;
+        font-weight: bold;
+    }
 }
