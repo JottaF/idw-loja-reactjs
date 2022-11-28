@@ -95,7 +95,9 @@ export default function Carrinho() {
           </Button>
         </Link>
       }
-      {(!auth.getUserInfo() && produtosDoCarrinho.length > 0) && <p className="h6 text-center my-4 text-secondary">Vamos fechar esse pedido? Faça login ou cadastre-se!</p>}
+      {(!auth.getUserInfo() && produtosDoCarrinho.length > 0) && <p className="h6 text-center my-4 text-secondary">
+        Vamos fechar esse pedido? Faça <Link to={'/contas/entrar'}>login</Link> ou <Link to={'/contas/cadastrar'}> cadastre-se</Link>
+      </p>}
     </div>
   );
 }
