@@ -26,7 +26,7 @@ export default function Vitrine({ children }) {
     <>
       <BarraDeNavegacao />
 
-      <Container className="my-5">
+      <Container className="my-5 my-edited">
         <main>
           <Outlet />
         </main>

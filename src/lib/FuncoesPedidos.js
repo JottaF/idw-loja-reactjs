@@ -113,6 +113,9 @@ export const FuncoesPedidos = {
       const json = await response.json();
       if (json.data) {
         const pedido = strapiDataToObject(json.data);
+        if (pedido.user.id != user.id) {
+          throw new Error('Você não tem permissão de acesso a este pedido.')
+        }
         return { pedido, meta: json.meta };
       }
       if (json.error) {
