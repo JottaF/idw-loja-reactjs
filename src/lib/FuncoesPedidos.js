@@ -33,15 +33,6 @@ export const FuncoesPedidos = {
           }
         )
       });
-
-      const json = await response.json();
-      if (json.data) {
-        const pedido = strapiDataToObject(json.data);
-        return pedido;
-      }
-      if (json.error) {
-        throw json.error;
-      }
     } catch (error) {
       throw error;
     }

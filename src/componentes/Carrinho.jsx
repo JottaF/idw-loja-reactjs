@@ -3,7 +3,7 @@ import { useState } from "react";
 import formatarPreco from "../lib/funcoes";
 import { FuncoesPedidos } from "../lib/FuncoesPedidos";
 import auth from "../lib/auth";
-import { LojaContext, useLojaContext } from "../providers/AppProvider";
+import { useLojaContext } from "../providers/AppProvider";
 import Alerta from "./Alerta";
 import "./Carrinho.scss";
 import { Link } from "react-router-dom";
@@ -57,7 +57,7 @@ export default function Carrinho() {
     return total;
   };
 
-  const handleFinalizarPedidoClick = async (e) => {
+  const handleFinalizarPedidoClick = async () => {
     setLoading(true)
     await FuncoesPedidos.create(produtosDoCarrinho)
     onFinalizarPedido()
